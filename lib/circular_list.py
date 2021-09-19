@@ -20,6 +20,7 @@ def remove_circular_duplicates(main_index: int, to_check: list):
     Returns:
         list: The list of solutions with duplicates removed.
     """
+
     def to_string(l: list):
         # Convert a list to a string, with elements separated by spaces
         return " ".join(str(x) for x in l)
