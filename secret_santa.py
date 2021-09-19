@@ -1,4 +1,3 @@
-
 from base64 import encode
 import random
 from itertools import permutations
@@ -11,6 +10,7 @@ from lib import hamiltonian
 from lib import config_parser
 from lib import store_allocation
 from lib.circular_list import deep_remove_circular_duplicates
+
 
 def allocate(graph: np.array, step: int = 2) -> list:
     # Fix invalid step sizes
@@ -65,7 +65,12 @@ def allocate(graph: np.array, step: int = 2) -> list:
         else:
             full_cycles.extend(group(shifted_cycles, slice_))
 
-    # print(f"full {full_cycles}")
+    if not full_cycles:
+        raise ValueError(
+            'The combination of people given in the "excluded" fields does not'
+            " allow for any valid cycles to be generated. Please try again with"
+            " a different config."
+        )
 
     return random.choice(full_cycles)
 
@@ -162,7 +167,7 @@ if __name__ == "__main__":
     person_mapping = map_to_people(mapping, people, people_index)
 
     # print(person_mapping)
-    
+
     encoded_allocations = store_allocation.encode_data(person_mapping)
 
     print("Sending emails...")
