@@ -1,5 +1,5 @@
 import numpy as np
-from circular_list import deep_is_circular
+from lib.circular_list import deep_remove_circular_duplicates
 
 
 def hamiltonian(graph: np.array, circular_dup=True) -> list:
@@ -10,7 +10,7 @@ def hamiltonian(graph: np.array, circular_dup=True) -> list:
             solutions.extend(new_solutions)
 
     if not circular_dup:
-        solutions = deep_is_circular(solutions)
+        solutions = deep_remove_circular_duplicates(solutions)
 
     return solutions
 

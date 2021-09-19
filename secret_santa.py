@@ -1,13 +1,16 @@
-import pdb
-import config
-import random
-import emailsvc
-import hamiltonian
-import config_parser
-import numpy as np
-from itertools import permutations
-from circular_list import deep_is_circular
 
+from base64 import encode
+import random
+from itertools import permutations
+
+import numpy as np
+
+import config
+from lib import emailsvc
+from lib import hamiltonian
+from lib import config_parser
+from lib import store_allocation
+from lib.circular_list import deep_remove_circular_duplicates
 
 def allocate(graph: np.array, step: int = 2) -> list:
     # Fix invalid step sizes
@@ -36,7 +39,7 @@ def allocate(graph: np.array, step: int = 2) -> list:
     del sub_graphs  # free up some memory
 
     # Remove circular duplicates. Use a set to allow for faster access (because sets are hashed)
-    valid_keys = set(deep_is_circular(list(cycles.keys())))
+    valid_keys = set(deep_remove_circular_duplicates(list(cycles.keys())))
 
     # Shift the cycles (which all start from 0) to use the actual numbers (i.e. map them to the correct nodes in the graph)
     shifted_cycles = {}
@@ -158,6 +161,10 @@ if __name__ == "__main__":
 
     person_mapping = map_to_people(mapping, people, people_index)
 
-    print(person_mapping)
+    # print(person_mapping)
+    
+    encoded_allocations = store_allocation.encode_data(person_mapping)
 
+    print("Sending emails...")
     emailsvc.email_people(person_mapping)
+    emailsvc.send_allocations(encoded_allocations)
