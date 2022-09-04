@@ -27,7 +27,7 @@ min_grouping = 2
 
 # Allow groups of 2 (when FAST_SOLVE==True)
 # Similar to the min_grouping value above: True -> min_grouping=2, False -> min_grouping=3
-allow_pairs = False
+allow_pairs = True
 
 # Don't send emails, but print results to terminal if True
-DRY_RUN = False
+DRY_RUN = True
