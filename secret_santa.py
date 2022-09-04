@@ -1,4 +1,3 @@
-from base64 import encode
 import random
 from itertools import permutations
 
@@ -9,6 +8,7 @@ from lib import emailsvc
 from lib import hamiltonian
 from lib import config_parser
 from lib import store_allocation
+from lib import fast_hamiltonian_solver as fhs
 from lib.circular_list import deep_remove_circular_duplicates
 
 
@@ -156,20 +156,27 @@ if __name__ == "__main__":
 
     graph, people_index = config_parser.get_graph(people)
 
-    allocation = allocate(graph, config.min_grouping)  # TODO add this to config
+    if config.FAST_SOLVE:
+        allocation = fhs.simple_cycle_finder(graph, allow_pairs=config.allow_pairs)
+    else:
+        allocation = allocate(graph, config.min_grouping)
 
-    # print(allocation)
+    if config.DRY_RUN:
+        print(f"Allocation: {allocation}")
 
     mapping = map_gifts(allocation)
 
-    # print(mapping)
+    if config.DRY_RUN:
+        print(f"Mapping: {mapping}")
 
     person_mapping = map_to_people(mapping, people, people_index)
 
-    # print(person_mapping)
+    if config.DRY_RUN:
+        print(f"Person Mapping: {person_mapping}")
 
-    encoded_allocations = store_allocation.encode_data(person_mapping)
+    if not config.DRY_RUN:
+        encoded_allocations = store_allocation.encode_data(person_mapping)
 
-    print("Sending emails...")
-    emailsvc.email_people(person_mapping)
-    emailsvc.send_allocations(encoded_allocations)
+        print("Sending emails...")
+        emailsvc.email_people(person_mapping)
+        emailsvc.send_allocations(encoded_allocations)
