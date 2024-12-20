@@ -1,0 +1,31 @@
+<html>
+    <body style="background-color: #8C150B; font-family: sans-serif;">
+        <!-- Preview message that doesn't appear in the email body -->
+        <span style="display:none !important; visibility:hidden; opacity:0; height:0; width:0;">
+            Who are you giving a gift to this year?
+            <!--
+            Add a whole load of spaces so the content of the email doesn't show in the preview
+            Even with all of these, it sometimes doesn't work :/ 
+            -->
+            &nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;
+            &nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;
+            &nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;
+            &nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;
+            &nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;
+            &nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;
+            &nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;
+            &nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;&nbsp;&#847;
+        </span>
+        <div style="max-width: 500px; margin: auto; margin-top: 20px; border: 3px solid #000000; background-color: white; padding: 20px; border-radius: 50px">
+            <div style="margin: 50px">
+                <p style="text-align: center; color: red; font-weight: bold;">.:*~*:._.:*~*:.</p>
+                <p>Hi {email_recipient_name},<br>
+                <p>For Secret Santa, you are giving a gift to {gift_recipient_name}.</p>
+                {budget_info}
+                {gift_ideas}
+                <p style="text-align: center; color: red; font-weight: bold;">.:*~*:._.:*~*:.</p>
+            </div>
+        </div>
+        <p style="font-size: 0">{random_value}</p>  <!-- Random value to prevent quote collapsing -->
+    </body>
+</html>

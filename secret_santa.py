@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import random
 from itertools import permutations
 
@@ -35,7 +37,6 @@ def allocate(graph: np.array, step: int = 2) -> list:
     for index, sub_graph in sub_graphs.items():
         # no need to check the index, as there can only be one of each in sub_graphs
         cycles.update({index: hamiltonian.hamiltonian(sub_graph, False)})
-
     del sub_graphs  # free up some memory
 
     # Remove circular duplicates. Use a set to allow for faster access (because sets are hashed)
